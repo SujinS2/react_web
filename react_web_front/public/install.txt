@@ -1,0 +1,4 @@
+(깃으로 공유가 안되므로 누가 언제 무엇을 install했는지 적어둘것)
+조수진 2024-08-29 17:05
+npm install react-router-dom
+npm install axios
