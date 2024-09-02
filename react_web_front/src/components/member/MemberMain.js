@@ -1,10 +1,10 @@
 import { useRecoilState } from "recoil";
 import { memberTypeState } from "../utils/RecoilData";
 import { useEffect, useState } from "react";
-import LeftSideMenu from "./LeftSideMenu";
 import { Route, Routes } from "react-router-dom";
 import MemberInfo from "./MemberInfo";
 import ChangePw from "./ChangePw";
+import LeftSideMenu from "../utils/LeftSideMenu";
 
 const MemberMain = () => {
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
