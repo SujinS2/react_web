@@ -35,6 +35,10 @@ const Login = () => {
         console.log(res);
         setLoginId(res.data.memberId);
         setMemberType(res.data.memberType);
+        //로그인 이후 axios 요청 시 발급받은 토큰 값을 자동으로 axios에 추가하는 설정 (이 작업을 하지 않으면 매번 header에 token값을 보내줘야함)==>이제ㅡ Autorization을 키값으로 해서 token값을 받을 수 있음
+        axios.defaults.headers.common["Autorization"] = res.data.accessToken;
+        //로그인 이후 상태를 지속적으로 유지시키기 위해 발급받은 refreshToken을 브라우저에 저장==>이제 새로고침을 해도 로그인이 풀리지 않도록 작업할것임 & 자동로그인까지
+        window.localStorage.setItem("refreshToken", res.data.refreshToken);
         navigate("/");
       })
       .catch((err) => {

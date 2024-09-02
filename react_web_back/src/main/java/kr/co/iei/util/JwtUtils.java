@@ -8,8 +8,10 @@ import javax.crypto.SecretKey;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import kr.co.iei.member.model.dto.LoginMemberDTO;
 
 @Component
 public class JwtUtils {
@@ -59,5 +61,23 @@ public class JwtUtils {
 									.claim("memberType", memberType)
 									.compact();					//생성
 				return token;
+	}
+	
+	//토큰을 받아서 확인
+	public LoginMemberDTO checkToken(String token) {
+		//1.토큰 해석을 위한 암호화 키 세팅
+		SecretKey key = Keys.hmacShaKeyFor(secretKey.getBytes());
+		Claims claims = (Claims) Jwts.parser()				//토큰 해석 시작
+									.verifyWith(key)		//암호화 키
+									.build()			
+									.parse(token)
+									.getPayload();
+		String memberId = (String)claims.get("memberId");
+		int memberType = (int)claims.get("memberType");
+		LoginMemberDTO loginMember = new LoginMemberDTO();
+		loginMember.setMemberId(memberId);
+		loginMember.setMemberType(memberType);
+		return loginMember;
+									
 	}
 }
