@@ -21,7 +21,7 @@ public class BoardController {
 	
 	@GetMapping(value="/list/{reqPage}")
 	public ResponseEntity<Map> list(@PathVariable int reqPage){
-		//조회결과는 게시물목록, pageNavi 생성시 필요한 데이터들
+		//조회결과는 게시물목록, pageNavi 생성시 필요한 데이터들기름
 		Map map = boardService.selectBoardList(reqPage);
 		return ResponseEntity.ok(map);
 	}
