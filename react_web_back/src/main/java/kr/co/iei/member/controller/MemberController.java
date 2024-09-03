@@ -72,11 +72,11 @@ public class MemberController {
 	@Operation(summary="회원 1명 정보 조회", description = "")
 	@GetMapping
 	public ResponseEntity<MemberDTO> selectOneMember(@RequestHeader("Authorization")String token) {
-		try {
-			Thread.sleep(500);
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
+//		try {
+//			Thread.sleep(500);
+//		} catch (Exception e) {
+//			// TODO: handle exception
+//		}
 		MemberDTO member = memberService.selectOneMember(token);
 		return ResponseEntity.ok(member);
 	}

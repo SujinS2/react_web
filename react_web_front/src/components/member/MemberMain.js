@@ -1,12 +1,23 @@
-import { useRecoilState } from "recoil";
-import { memberTypeState } from "../utils/RecoilData";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { isLoginState, memberTypeState } from "../utils/RecoilData";
 import { useEffect, useState } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import MemberInfo from "./MemberInfo";
 import ChangePw from "./ChangePw";
 import LeftSideMenu from "../utils/LeftSideMenu";
+import Swal from "sweetalert2";
 
 const MemberMain = () => {
+  const isLogin = useRecoilValue(isLoginState);
+  const navigate = useNavigate();
+  if (!isLogin) {
+    Swal.fire({
+      title: "로그인 후 이용하실 수 있습니다",
+      icon: "info",
+    }).then(() => {
+      navigate("/");
+    });
+  }
   const [memberType, setMemberType] = useRecoilState(memberTypeState);
   const [menus, setMenus] = useState([
     { url: "info", text: "내 정보" },
