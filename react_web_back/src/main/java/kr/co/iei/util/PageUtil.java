@@ -11,6 +11,8 @@ public class PageUtil {
 		int pageNo = reqPage-2;
 		if(pageNo<=0 || pageNaviSize>=totalPage) {
 			pageNo = 1;
+		}else if(pageNo+pageNaviSize-1>totalPage) {
+			pageNo = totalPage-4;
 		}
 		PageInfo pageInfo = new PageInfo(start, end, pageNo, pageNaviSize, totalPage);
 		return pageInfo;
