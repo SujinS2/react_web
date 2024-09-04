@@ -9,6 +9,7 @@ import Swal from "sweetalert2";
 
 const BoardWrite = () => {
   const backServer = process.env.REACT_APP_BACK_SERVER;
+  console.log(backServer);
   const navigate = useNavigate();
   //글 작성시 전송할 데이터 선언
   const [loginId, setLoginId] = useRecoilState(loginIdState); // 로그인한 회원 아이디값(입력할게 아니기 때문에 state 사용 안함)
