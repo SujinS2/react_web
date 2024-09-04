@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.co.iei.board.model.dao.BoardDao;
+import kr.co.iei.board.model.dto.BoardDTO;
+import kr.co.iei.board.model.dto.BoardFileDTO;
 import kr.co.iei.util.PageInfo;
 import kr.co.iei.util.PageUtil;
 
@@ -31,5 +33,23 @@ public class BoardService {
 		map.put("list", list);
 		map.put("pi", pi);
 		return map;
+	}
+
+
+	public boolean insertBoard(BoardDTO board, List<BoardFileDTO> boardFileList) {
+		int result = boardDao.insertBoard(board);
+		if(result>0) {
+			for(BoardFileDTO boardFile : boardFileList) {
+				boardFile.setBoardNo(board.getBoardNo());
+				result += boardDao.insertBoardFile(boardFile);
+			}
+		}
+		return (result ==1+boardFileList.size());
+	}
+
+
+	public BoardDTO selectOneBoard(int boardNo) {
+		BoardDTO board = boardDao.selectOneBoard(boardNo);
+		return board;
 	}
 }

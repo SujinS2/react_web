@@ -2,7 +2,6 @@ const PageNavi = (props) => {
   const pi = props.pi;
   const setReqPage = props.setReqPage;
   const reqPage = props.reqPage;
-  console.log(pi);
   //paging jsx가 저장될 배열 선언
   const arr = new Array();
   //제일 앞으로

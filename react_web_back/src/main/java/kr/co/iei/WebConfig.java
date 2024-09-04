@@ -21,6 +21,9 @@ public class WebConfig implements WebMvcConfigurer{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry.addResourceHandler("/editor/**")
 		.addResourceLocations("file:///"+root+"/editor/");
+		
+		registry.addResourceHandler("/board/thumb/**")
+				.addResourceLocations("file:///"+root+"/board/thumb/");
 	}
 	
 }
