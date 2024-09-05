@@ -8,7 +8,7 @@ public class PageUtil {
 		int end = numPerPage*(reqPage);
 		int start = end -numPerPage +1;
 		int totalPage = (int)Math.ceil((double)totalCount/numPerPage);
-		int pageNo = reqPage-2;
+		int pageNo = reqPage-(pageNaviSize/2);
 		if(pageNo<=0 || pageNaviSize>=totalPage) {
 			pageNo = 1;
 		}else if(pageNo+pageNaviSize-1>totalPage) {

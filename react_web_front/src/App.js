@@ -10,6 +10,7 @@ import { loginIdState, memberTypeState } from "./components/utils/RecoilData";
 import { useRecoilState } from "recoil";
 import MemberMain from "./components/member/MemberMain";
 import BoardMain from "./components/board/BoardMain";
+import AdminMain from "./components/admin/AdminMain";
 
 function App() {
   const backServer = process.env.REACT_APP_BACK_SERVER;
@@ -58,6 +59,7 @@ function App() {
           <Route path="/member/*" element={<MemberMain />}></Route>
           {/* /member/info, /member/changePw 등등 모두 MemberMain으로 갈수있도록 */}
           <Route path="/board/*" element={<BoardMain />}></Route>
+          <Route path="/admin/*" element={<AdminMain />}></Route>
         </Routes>
       </main>
       <Footer />
