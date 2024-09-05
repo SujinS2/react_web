@@ -3,6 +3,7 @@ import { Editor } from "@toast-ui/react-editor";
 import axios from "axios";
 import { useRef } from "react";
 const ToastEditor = (props) => {
+  const type = props.type;
   const backServer = process.env.REACT_APP_BACK_SERVER;
   const boardContent = props.boardContent;
   const setBoardContent = props.setBoardContent;
@@ -35,7 +36,8 @@ const ToastEditor = (props) => {
   };
   return (
     <div style={{ width: "100%", marginTop: "20px" }}>
-      {boardContent || boardContent === "" ? (
+      {/* write일때는 그냥 띄우고 수정인경우에는 ===인 경우만 */}
+      {type === 0 || (type === 1 && boardContent !== "") ? (
         <Editor
           ref={editorRef}
           initialValue={boardContent}

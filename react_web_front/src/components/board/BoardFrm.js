@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 
 const BoardFrm = (props) => {
+  const backServer = process.env.REACT_APP_BACK_SERVER;
   const loginId = props.loginId;
   const boardFile = props.boardFile;
   const setBoardFile = props.setBoardFile;
@@ -47,6 +48,15 @@ const BoardFrm = (props) => {
   };
   //console.log(boardFile);
   //console.log(showBoardFile);
+
+  //수정인 경우에 추가로 전송되는 데이터
+  const boardThumb = props.boardThumb;
+  const setBoardThumb = props.setBoardThumb;
+  const fileList = props.fileList;
+  const setFileList = props.setFileList;
+  const delBoardFileNo = props.delBoardFileNo;
+  const setDelBoardFileNo = props.setDelBoardFileNo;
+
   return (
     <div>
       <div className="board-thumb-wrap">
@@ -57,6 +67,13 @@ const BoardFrm = (props) => {
               thumbnailRef.current.click();
             }}
           ></img>
+        ) : boardThumb ? (
+          <img
+            src={`${backServer}/board/thumb/${boardThumb}`}
+            onClick={() => {
+              thumbnailRef.current.click();
+            }}
+          />
         ) : (
           <img
             src="/image/default_img.png"
@@ -120,6 +137,36 @@ const BoardFrm = (props) => {
               <th>첨부파일 목록</th>
               <td>
                 <div className="board-file-wrap">
+                  {fileList
+                    ? fileList.map((boardFile, i) => {
+                        const deleteFile = () => {
+                          setFileList([
+                            //화면에 반영
+                            ...fileList.filter((item) => {
+                              return item !== boardFile;
+                            }),
+                          ]);
+                          setDelBoardFileNo([
+                            //controller로 전송하기 위해 배열에 추가
+                            ...delBoardFileNo,
+                            boardFile.boardFileNo,
+                          ]);
+                        };
+                        return (
+                          <p key={"oldFile" + i}>
+                            <span className="filename">
+                              {boardFile.filename}
+                            </span>
+                            <span
+                              className="material-icons del-file-icon"
+                              onClick={deleteFile}
+                            >
+                              delete
+                            </span>
+                          </p>
+                        );
+                      })
+                    : ""}
                   {showBoardFile.map((filename, i) => {
                     const deleteFile = () => {
                       boardFile.splice(i, 1);
