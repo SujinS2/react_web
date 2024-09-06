@@ -1,6 +1,8 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import PageNavi from "../utils/PageNavi";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
 
 const AdminMember = () => {
   const backServer = process.env.REACT_APP_BACK_SERVER;
@@ -34,7 +36,17 @@ const AdminMember = () => {
           </thead>
           <tbody>
             {memberList.map((member, index) => {
-              return <MemberItem key={"member" + index} member={member} />;
+              const changeType = (memberType) => {
+                member.memberType = memberType;
+                setMemberList([...memberList]);
+              };
+              return (
+                <MemberItem
+                  key={"member" + index}
+                  member={member}
+                  changeType={changeType}
+                />
+              );
             })}
           </tbody>
         </table>
@@ -47,13 +59,43 @@ const AdminMember = () => {
 };
 
 const MemberItem = (props) => {
+  const backServer = process.env.REACT_APP_BACK_SERVER;
   const member = props.member;
+  const changeType = props.changeType;
+  const handleChange = (e) => {
+    axios
+      .patch(`${backServer}/admin/member`, {
+        memberId: member.memberId,
+        memberType: e.target.value,
+      })
+      .then((res) => {
+        console.log(res);
+        if (res.data) {
+          changeType(e.target.value);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <tr>
       <td>{member.memberId}</td>
       <td>{member.memberName}</td>
       <td>{member.memberPhone}</td>
-      <td>{member.memberType}</td>
+      <td>
+        <Select
+          style={{ width: "150px", height: "50px" }}
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={member.memberType}
+          label="Age"
+          onChange={handleChange}
+        >
+          <MenuItem value={1}>관리자</MenuItem>
+          <MenuItem value={2}>일반회원</MenuItem>
+        </Select>
+      </td>
     </tr>
   );
 };

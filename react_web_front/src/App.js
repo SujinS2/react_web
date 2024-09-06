@@ -11,6 +11,7 @@ import { useRecoilState } from "recoil";
 import MemberMain from "./components/member/MemberMain";
 import BoardMain from "./components/board/BoardMain";
 import AdminMain from "./components/admin/AdminMain";
+import ChatMain from "./components/utils/ChatMain";
 
 function App() {
   const backServer = process.env.REACT_APP_BACK_SERVER;
@@ -60,6 +61,7 @@ function App() {
           {/* /member/info, /member/changePw 등등 모두 MemberMain으로 갈수있도록 */}
           <Route path="/board/*" element={<BoardMain />}></Route>
           <Route path="/admin/*" element={<AdminMain />}></Route>
+          <Route path="/chat" element={<ChatMain />}></Route>
         </Routes>
       </main>
       <Footer />
